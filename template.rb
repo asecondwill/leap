@@ -1,3 +1,8 @@
+def source_paths
+  [__dir__]
+end
+
+
 def add_my_gems
   gem 'devise' 
   gem "simple_form"
@@ -25,8 +30,7 @@ def setup_scss
   puts "setup scss"
   run "./bin/rails dartsass:install"
   
-  
-  puts "rename application.css to scss"
+  run "rm app/assets/stylesheets/application.css"
   puts "config it"  
   puts "include it"
 
@@ -36,12 +40,18 @@ def setup_scss
 end
 
 def tidy 
-  run "rm README.md"
   insert_into_file  ".gitignore", ".DS_Store"
+  run "rm README.md"
+  copy_file "README.md"
+  
+  directory "app", force: true
+  
+  route "root to: 'landings#home'"
 
   git add: '.'
-  git commit: "-a -m 'final tidy'"
+  git commit: "-a -m 'copy app dir & final tidy'"
 end
+
 
 
 after_bundle do
@@ -61,4 +71,13 @@ after_bundle do
   setup_scss
 
   tidy  
+
+
+  #ttd:   scafold templates. 
+  #       Devise screens
+  #       simpleform extras 
+  #       standard page templates. layouts:  site, app.  header, footer and menu.   
+  #       CMS features
+  #       copy  stuff from previous sites
+  #       extract things to gems?
 end
