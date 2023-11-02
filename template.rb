@@ -2,7 +2,6 @@ def source_paths
   [__dir__]
 end
 
-
 def add_my_gems
   gem 'devise' 
   gem "simple_form"
@@ -17,6 +16,8 @@ def run_generators
   generate "simple_form:install --bootstrap"
   generate "devise:install"
   generate :devise, "User", "first_name", "last_name", "admin:boolean"
+  git add: '.'
+  git commit: "-a -m 'run generators'"
 end
 
 def setup_js
@@ -55,26 +56,22 @@ end
 
 
 after_bundle do
-  
+  # bin stubs created before this, so can do bundle stuff. 
+
   git :init
   git add: '.'
   git commit: "-a -m 'Initial commit'"
 
   add_my_gems
-
   run_generators
-
-  # bin stubs created before this, so can do bundle stuff. 
   setup_js
-  
-  # fetch me some sass
   setup_scss
-
   tidy  
 
-
-  #ttd:   scafold templates. 
+  #ttd:   scafold templates.  - ideally, have block or table ones, admin ones. 
   #       Devise screens
+  #       restrict users area as a demo
+  #       create a user
   #       simpleform extras 
   #       standard page templates. layouts:  site, app.  header, footer and menu.   
   #       CMS features
