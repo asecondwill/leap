@@ -7,7 +7,17 @@ def add_my_gems
   gem "simple_form"
   gem 'dartsass-rails'
   gem 'annotate'
-
+  gem 'ransack'
+  gem 'name_of_person'
+  gem "image_processing", ">= 1.2"
+  gem 'github-markup'
+ 
+  gem_group :development do
+    gem 'hirb'
+    gem 'rails-erd'
+    gem 'letter_opener'
+  end
+  
   git add: '.'
   git commit: "-a -m 'add gems'"
 end
@@ -24,6 +34,14 @@ def setup_js
   run "bin/importmap pin bootstrap"
   git add: '.'
   git commit: "-a -m 'pin bootstrap'"
+end
+
+def add_storage_and_rich_text
+  rails_command "active_storage:install"
+  rails_command "action_text:install"
+
+  git add: '.'
+  git commit: "-a -m 'add storage and text'"
 end
 
 def setup_scss
@@ -66,6 +84,7 @@ after_bundle do
   run_generators
   setup_js
   setup_scss
+  add_storage_and_rich_text
   tidy  
 
   #ttd:   scafold templates.  - ideally, have block or table ones, admin ones. 
