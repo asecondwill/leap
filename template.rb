@@ -11,6 +11,7 @@ def add_my_gems
   gem 'name_of_person'
   gem "image_processing", ">= 1.2"
   gem 'github-markup'
+  gem 'friendly_id'
  
   gem_group :development do
     gem 'hirb'
@@ -24,8 +25,9 @@ end
 
 def run_generators
   generate "simple_form:install --bootstrap"
-  generate "devise:install"
+  generate "devise:install"  
   generate :devise, "User", "first_name", "last_name", "admin:boolean"
+  generate "friendly_id"
   git add: '.'
   git commit: "-a -m 'run generators'"
 end
@@ -66,6 +68,9 @@ def tidy
   directory "app", force: true
   
   route "root to: 'landings#home'"
+
+  environment "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }",
+              env: 'development'
 
   git add: '.'
   git commit: "-a -m 'copy app dir & final tidy'"
