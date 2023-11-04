@@ -8,8 +8,7 @@ def add_my_gems
   gem 'dartsass-rails'
   gem 'annotate'
   gem 'ransack'
-  gem 'name_of_person'
-  gem "image_processing", ">= 1.2"
+  gem 'name_of_person'  
   gem 'github-markup'
   gem 'friendly_id'
  
