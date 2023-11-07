@@ -70,9 +70,9 @@ def setup_scss
   puts "config it"  
   puts "include it"
 
-  # git submodule: "add -b main --name bootstrap https://github.com/twbs/bootstrap.git vendor/bootstrap"
-  # git add: '.'
-  # git commit: "-a -m 'Bootstrap as a submodule, add dart, set up sass'"
+  git submodule: "add -b main --name bootstrap https://github.com/twbs/bootstrap.git vendor/bootstrap"
+  git add: '.'
+  git commit: "-a -m 'Bootstrap as a submodule, add dart, set up sass'"
 end
 
 
@@ -89,7 +89,7 @@ def add_some_files
   git add: '.'
   git commit: "-a -m 'add dartsass config'"
 
-  lib 'input_group_component.rb', <<-CODE
+  lib 'components/input_group_component.rb', <<-CODE
   # custom component requires input group wrapper
   module InputGroup
     def prepend(wrapper_options = nil)
