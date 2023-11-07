@@ -6,6 +6,7 @@
 @import "../../../vendor/bootstrap/scss/bootstrap.scss";
 
 @import "site/devise";
+@import "shared";
 
 body{
   
@@ -26,10 +27,3 @@ body{
 
 }
 
-.alert{
-  border-width: 0 0 0 4px;  
-  border-radius: 0;
-}
-.alert-danger{
-   border-color:  red;
-}
