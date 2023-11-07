@@ -11,6 +11,8 @@ def add_my_gems
   gem 'name_of_person'  
   gem 'github-markup'
   gem 'friendly_id'
+  gem  'sitemap_generator'
+  gem "devise-bootstrap-views", github: 'asecondwill/devise-bootstrap-views'
  
   gem_group :development do
     gem 'hirb'
@@ -27,14 +29,19 @@ def run_generators
   generate "devise:install"  
   generate :devise, "User", "first_name", "last_name", "admin:boolean"
   generate "friendly_id"
+  rails_command "sitemap:install"
   git add: '.'
   git commit: "-a -m 'run generators'"
 end
 
 def setup_js
   run "bin/importmap pin bootstrap"
+  run "bin/importmap pin stimulus-password-visibility"
+  insert_into_file "app/javascript/controllers/index.js", "import PasswordVisibility from 'stimulus-password-visibility'"            
+  insert_into_file "app/javascript/controllers/index.js", "application.register('password-visibility', PasswordVisibility)"            
+
   git add: '.'
-  git commit: "-a -m 'pin bootstrap'"
+  git commit: "-a -m 'pin bootstrap and password visibility'"
 end
 
 def add_storage_and_rich_text
@@ -71,8 +78,39 @@ def tidy
   environment "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }",
               env: 'development'
 
+  insert_into_file "README.md", "run to refresh sitemap: `rake sitemap:refresh`"            
+
   git add: '.'
   git commit: "-a -m 'copy app dir & final tidy'"
+  initializer 'dartsass.rb', <<-CODE
+  Rails.application.config.dartsass.builds = {
+    "application.scss"        => "application.css",
+    "site.scss"       => "site.css"
+  }
+  CODE
+
+
+  lib 'input_group_component.rb', <<-CODE
+  # custom component requires input group wrapper
+  module InputGroup
+    def prepend(wrapper_options = nil)
+      template.content_tag(:span, options[:prepend], class: "input-group-text")
+    end
+
+    def append(wrapper_options = nil)
+      template.content_tag(:span, options[:append], class: "input-group-text")
+    end
+  end
+
+  # Register the component in Simple Form.
+  SimpleForm.include_component(InputGroup)
+
+  
+CODE
+
+Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }
+
+insert_into_file  "config/initializers/simple_form_bootstrap.rb", "Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }"
 end
 
 
@@ -90,6 +128,8 @@ after_bundle do
   setup_scss
   add_storage_and_rich_text
   tidy  
+
+  
 
   #ttd:   scafold templates.  - ideally, have block or table ones, admin ones. 
   #       Devise screens

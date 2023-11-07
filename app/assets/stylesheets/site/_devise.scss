@@ -1,0 +1,16 @@
+#devise{
+  background-color: #f9fafb;
+  padding: 3em;
+  
+}
+
+
+.devise-header{
+  text-align: center;
+  @extend .mb-3;
+  @extend .mt-3;
+}
+
+.devise-container{
+  max-width: 600px;
+}
