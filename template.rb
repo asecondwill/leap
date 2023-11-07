@@ -12,7 +12,7 @@ def add_my_gems
   gem 'github-markup'
   gem 'friendly_id'
   gem  'sitemap_generator'
-  gem "devise-bootstrap-views", github: 'asecondwill/devise-bootstrap-views'
+  # gem "devise-bootstrap-views", github: 'asecondwill/devise-bootstrap-views'
  
   gem_group :development do
     gem 'hirb'
@@ -61,9 +61,9 @@ def setup_scss
   puts "config it"  
   puts "include it"
 
-  git submodule: "add -b main --name bootstrap https://github.com/twbs/bootstrap.git vendor/bootstrap"
-  git add: '.'
-  git commit: "-a -m 'Bootstrap as a submodule, add dart, set up sass'"
+  # git submodule: "add -b main --name bootstrap https://github.com/twbs/bootstrap.git vendor/bootstrap"
+  # git add: '.'
+  # git commit: "-a -m 'Bootstrap as a submodule, add dart, set up sass'"
 end
 
 def tidy 
@@ -82,37 +82,43 @@ def tidy
 
   git add: '.'
   git commit: "-a -m 'copy app dir & final tidy'"
-  initializer 'dartsass.rb', <<-CODE
-  Rails.application.config.dartsass.builds = {
-    "application.scss"        => "application.css",
-    "site.scss"       => "site.css"
-  }
-  CODE
 
+  insert_into_file  "config/initializers/simple_form_bootstrap.rb", "Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }"
 
-  lib 'input_group_component.rb', <<-CODE
-  # custom component requires input group wrapper
-  module InputGroup
-    def prepend(wrapper_options = nil)
-      template.content_tag(:span, options[:prepend], class: "input-group-text")
-    end
-
-    def append(wrapper_options = nil)
-      template.content_tag(:span, options[:append], class: "input-group-text")
-    end
-  end
-
-  # Register the component in Simple Form.
-  SimpleForm.include_component(InputGroup)
-
-  
-CODE
-
-Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }
-
-insert_into_file  "config/initializers/simple_form_bootstrap.rb", "Dir[Rails.root.join('lib/components/**/*.rb')].each { |f| require f }"
+  git add: '.'
+  git commit: "-a -m 'add simple_form components'"
 end
 
+
+def add_some_files
+#   initializer 'dartsass.rb', <<-CODE
+#   Rails.application.config.dartsass.builds = {
+#     "application.scss"        => "application.css",
+#     "site.scss"       => "site.css"
+#   }
+#   CODE
+
+# git add: '.'
+# git commit: "-a -m 'add dartsass config'"
+
+#   lib 'input_group_component.rb', <<-CODE
+#   # custom component requires input group wrapper
+#   module InputGroup
+#     def prepend(wrapper_options = nil)
+#       template.content_tag(:span, options[:prepend], class: "input-group-text")
+#     end
+
+#     def append(wrapper_options = nil)
+#       template.content_tag(:span, options[:append], class: "input-group-text")
+#     end
+#   end
+
+#   # Register the component in Simple Form.
+#   SimpleForm.include_component(InputGroup)
+
+  
+# CODE
+end
 
 
 after_bundle do
