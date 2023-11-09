@@ -1,0 +1,43 @@
+<div class="offcanvas-md offcanvas-start bg-white " tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+        <p class="text-center d-none d-md-block">
+          <a href="/"><%= image_tag "logo.png", class:  ' d-inline-block align-text-middle mt-3', width: "60", height: "60"  %></a>
+        </p>
+        <div class="offcanvas-header">
+          <p class="text-center">
+            <a href="/"><%= image_tag "logo.png", class:  ' d-inline-block align-text-middle mt-3', width: "60", height: "60"  %></a>
+          </p>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+         <hr>
+
+          <ul class="nav flex-column">
+            <li class="nav-item ">
+              <a class="nav-link d-flex align-items-center gap-2 active ps-md-0" aria-current="page" href="/dash">
+                <i class="bi-speedometer"></i>
+                Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2 ps-0" href="#">
+                <i class="bi bi-train-freight-front"></i>
+                Orders
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2 ps-0" href="#">
+                 <i class="bi-rocket"></i>
+                Products
+              </a>
+            </li>
+            
+          </ul>
+
+
+          <hr class="my-3">
+          <div class=" align-items-end">
+            Last stuff
+          </div >
+          
+        </div>
+      </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Appy6</title>
+    <title>Example.com</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,9 +11,9 @@
   </head>
 
   <body>
-    SITE HEADER
-      <%= render 'shared/notices' %>
+    <%= render 'shared/site/header' %>
+    <%= render 'shared/notices' %>
     <%= yield %>
-    SITE FOOTER
+    <%= render 'shared/site/footer' %>
   </body>
 </html>

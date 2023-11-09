@@ -27,3 +27,22 @@ body{
 
 }
 
+
+.cta{
+  background: rgb(2,0,36);
+  background: linear-gradient(121deg, rgba(2,0,36,1) 0%, rgba(97,97,214,1) 35%);
+  color: white;
+  padding: 3em;
+}
+.features{
+  background-color: #f1f2f9;
+}
+header.header{
+  border-bottom: 1px solid #eee;
+  
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
+  background-color: white;
+  input.search{
+    width: 120px;
+  }
+}

@@ -47,7 +47,9 @@ def setup_js
   insert_into_file "app/javascript/controllers/index.js", "import PasswordVisibility from 'stimulus-password-visibility'
   \n"            
   insert_into_file "app/javascript/controllers/index.js", "application.register('password-visibility', PasswordVisibility)
-  \n"            
+  \n"        
+  
+insert_into_file "app/javascript/application.js", "import * as bootstrap from 'bootstrap'"
 
   git add: '.'
   git commit: "-a -m 'pin bootstrap and password visibility'"

@@ -1,1 +1,43 @@
-hi <%= @current_user.email %>
+<% 5.times do  %>
+  <div class="card border-0 mb-5">
+    <div class="card-body">
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere minima ipsa, culpa accusamus quia asperiores dolores deleniti laudantium eveniet perspiciatis veritatis voluptatum saepe laborum ratione quisquam soluta dicta qui sequi!
+      </p>
+    </div>
+  </div>
+  <div class="card border-0 mb-5">
+    <div class="card-body">
+      <h3>Tables!</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>  
+<% end %>
