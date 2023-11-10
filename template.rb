@@ -20,7 +20,9 @@ def add_my_gems
   gem 'friendly_id'
   gem  'sitemap_generator'
   gem "devise-bootstrap-views", github: 'asecondwill/devise-bootstrap-views'
- 
+  gem 'pagy'
+  gem "meta-tags"
+
   gem_group :development do
     gem 'hirb'
     gem 'rails-erd'
@@ -36,6 +38,7 @@ def run_generators
   generate "devise:install"  
   generate :devise, "User", "first_name", "last_name", "admin:boolean"
   generate "friendly_id"
+  generate meta_tags:install
   rails_command "sitemap:install"
   git add: '.'
   git commit: "-a -m 'run generators'"
