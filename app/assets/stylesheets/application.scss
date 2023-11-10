@@ -11,3 +11,15 @@
     min-height: 100vh !important;
   }
 }
+
+div.actions{
+  @extend .border-top;
+  @extend .text-end;
+  @extend .pt-3;
+}
+td.actions, th.actions{
+  @extend .text-end;
+  a{
+    margin-left: 10px;
+  }
+}
