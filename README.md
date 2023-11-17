@@ -14,6 +14,17 @@ use like:
 rails g bootstrap:install  --simpleform --pagination 
 ````
 
+If you want pagination tho, you need to change the controller index to:
+````ruby
+ @pagy, @boats = pagy(Boat.all, items: 5)
+````
+
+## Breadcrumbs
+Add breadcrumbs with [breadcrumbs_on_rails](https://github.com/weppos/breadcrumbs_on_rails)
+````ruby
+  add_breadcrumb "home", :root_path
+  add_breadcrumb "Boats", :boats_path
+````
 
 # TTD:
 delayed jobs, but as simple as possible, ie use the default rails one
