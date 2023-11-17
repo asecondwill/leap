@@ -1,7 +1,8 @@
 # ITS LEAP
 Kick off a project like:
 ````bash
-rails new appy24 -a propshaft  -d sqlite3  -m ../leap/template.rb
+rails new MyNewApp -a propshaft  -d sqlite3  -m ../leap/template.rb
+rails db:create & rails db:migrate 
 ````
 or for real projects
 ````bash
@@ -22,7 +23,16 @@ If you want pagination tho, you need to change the controller index to:
  @pagy, @boats = pagy(Boat.all, items: 5)
 ````
 
+For bootstrap pagination, You need to download this:
+````ruby
+cd config/initializers 
+wget https://ddnexus.github.io/pagy/lib/config/pagy.rb
+````
+and uncomment
 
+```` require 'pagy/extras/bootstrap' ``
+
+TODO:  just do that in code?
 
 ## Breadcrumbs
 Add breadcrumbs with [breadcrumbs_on_rails](https://github.com/weppos/breadcrumbs_on_rails) in your controller:

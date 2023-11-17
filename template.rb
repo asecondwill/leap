@@ -23,6 +23,7 @@ def add_my_gems
   gem 'pagy'
   gem "meta-tags"
   gem 'breadcrumbs_on_rails'
+  gem 'bootstrap_views_generator', github: 'asecondwill/bootstrap_views_generator'
 
   gem_group :development do
     gem 'hirb'
@@ -39,7 +40,7 @@ def run_generators
   generate "devise:install"  
   generate :devise, "User", "first_name", "last_name", "admin:boolean"
   generate "friendly_id"
-  generate meta_tags:install
+  generate "meta_tags:install"
   rails_command "sitemap:install"
   git add: '.'
   git commit: "-a -m 'run generators'"
@@ -113,6 +114,8 @@ def add_some_files
 
   git add: '.'
   git commit: "-a -m 'add inputgroup component '"
+
+  copy_file "lib/bootstrap_five_breadcrumbs.rb"
 end
 
 
