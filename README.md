@@ -13,18 +13,32 @@ use like:
 ````bash
 rails g bootstrap:install  --simpleform --pagination 
 ````
-
+So now you can do Scafold for your Crud like a bootstrap boss:
+````ruby
+rails generate scaffold boats  name:string title:string content:text
+````
 If you want pagination tho, you need to change the controller index to:
 ````ruby
  @pagy, @boats = pagy(Boat.all, items: 5)
 ````
 
+
+
 ## Breadcrumbs
-Add breadcrumbs with [breadcrumbs_on_rails](https://github.com/weppos/breadcrumbs_on_rails)
+Add breadcrumbs with [breadcrumbs_on_rails](https://github.com/weppos/breadcrumbs_on_rails) in your controller:
 ````ruby
   add_breadcrumb "home", :root_path
   add_breadcrumb "Boats", :boats_path
+
+  def show
+    add_breadcrumb @boat.name, boat_path(@boat)
+  end
 ````
+Or views, eg for devise views - copy them over from the views gem and add:
+````ruby
+<% add_breadcrumb "Edit #{@boat.name}", edit_boat_path(@boat) %>
+````
+
 
 # TTD:
 delayed jobs, but as simple as possible, ie use the default rails one

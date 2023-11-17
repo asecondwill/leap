@@ -10,9 +10,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="pt-4">
+  <body class="pt-5">
     <%= render 'shared/site/header' %>
-    <div id="devise">
+    <div class="bg-light pt-3 overflow-y-auto">
+      <%= render 'shared/site/breadcrumbs' %>
+    </div>    
+    <div id="devise" class="bg-light">
       <div class="container devise-container" >   
         <%= yield %>
       </div>

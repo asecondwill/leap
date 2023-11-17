@@ -22,6 +22,7 @@ def add_my_gems
   gem "devise-bootstrap-views", github: 'asecondwill/devise-bootstrap-views'
   gem 'pagy'
   gem "meta-tags"
+  gem 'breadcrumbs_on_rails'
 
   gem_group :development do
     gem 'hirb'
