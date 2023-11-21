@@ -14,6 +14,9 @@
   <body class="pt-5">
     <%= render 'shared/site/header' %>
     <%= render 'shared/notices' %>
+    <div class="container pt-3 overflow-y-auto">
+      <%= render 'shared/site/breadcrumbs' %>
+    </div>
     <%= yield %>
     <%= render 'shared/site/footer' %>
   </body>
