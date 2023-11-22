@@ -43,7 +43,7 @@ use time_formats.rb and en.rb to configure your formats and then use like this:
 More docs here: https://api.rubyonrails.org/cl  asses/Time.html#method-i-to_formatted_s
 
 
-### Use github flavour markup in your views like: 
+# Use github flavour markup in your views like: 
 ````ruby
  md("**Hello** there")
 ````
