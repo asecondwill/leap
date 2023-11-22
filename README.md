@@ -38,12 +38,25 @@ TODO:  just do that in code?
 use time_formats.rb and en.rb to configure your formats and then use like this: 
 ````ruby
 <%=  boat.created_at.to_formatted_s(:full)   %>
-or..
 <%=  l(boat.created_at, format: :pirate)   %>
 ````
-More docs here: https://api.rubyonrails.org/classes/Time.html#method-i-to_formatted_s
+More docs here: https://api.rubyonrails.org/cl  asses/Time.html#method-i-to_formatted_s
 
 
+### Use github flavour markup in your views like: 
+````ruby
+ md("**Hello** there")
+````
+
+or
+````ruby
+markdown_filter do |block|
+# Hi There
+end
+````
+note, no indentation
+
+alternatively, use https://github.com/zarqman/markdown_views
 
 ## Breadcrumbs
 Add breadcrumbs with [breadcrumbs_on_rails](https://github.com/weppos/breadcrumbs_on_rails) in your controller:

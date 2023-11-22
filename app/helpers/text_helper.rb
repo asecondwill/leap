@@ -1,4 +1,3 @@
-
 module TextHelper
   def md(s)
     require 'github/markup'
@@ -7,6 +6,10 @@ module TextHelper
       a.gsub!('.</strong>', '.</strong>&nbsp;')
       return a.html_safe 
     end
+  end
+
+  def markdown_filter(&block)
+    concat(md(capture(&block)))
   end
 
   def nl2br(str)

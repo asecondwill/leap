@@ -17,6 +17,7 @@ def add_my_gems
   gem 'ransack'
   gem 'name_of_person'  
   gem 'github-markup'
+  gem 'commonmarker'
   gem 'friendly_id'
   gem  'sitemap_generator'
   gem "devise-bootstrap-views", github: 'asecondwill/devise-bootstrap-views'
@@ -116,6 +117,13 @@ def add_some_files
   git commit: "-a -m 'add inputgroup component '"
 
   copy_file "lib/bootstrap_five_breadcrumbs.rb"
+  git add: '.'
+  git commit: "-a -m 'add breadcrumbs '"
+  copy_file "locals/en.rb"
+  copy_file "initializers/time_formats.rb"
+  git add: '.'
+  git commit: "-a -m 'add time formats '"
+  
 end
 
 
