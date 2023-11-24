@@ -16,8 +16,8 @@
             <% end %>
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="<%= settings_path %>">Settings</a></li>
+            <li><a class="dropdown-item" href="<%= change_password_path %>">Change Passsword</a></li>
           <li><hr class="dropdown-divider"></li>
           <li>        
             <%= button_to "logout", destroy_user_session_path, method: :delete, class: "dropdown-item btn-link"  %>

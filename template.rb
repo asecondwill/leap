@@ -39,7 +39,7 @@ end
 def run_generators
   generate "simple_form:install --bootstrap"
   generate "devise:install"  
-  generate :devise, "User", "first_name", "last_name", "admin:boolean"
+  generate :devise, "User", "first_name", "last_name", "admin:boolean:false", "time_zone:string:Sydney"
   generate "friendly_id"
   generate "meta_tags:install"
   rails_command "sitemap:install"
@@ -138,7 +138,14 @@ def add_some_files
 end
 
 
-
+def user_settings
+  route "get 'settings', to: 'users#settings'"
+  route "patch 'settings', to: 'users#update_settings'"
+  route "get 'change_password', to: 'users#password'"
+  route "patch 'change_password', to: 'users#update_password'"
+  git add: '.'
+  git commit: "-a -m 'add user settings routes'"
+end
 
 def tidy 
   
@@ -153,6 +160,22 @@ def tidy
 
   environment "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }",
               env: 'development'
+  environment "config.action_mailer.delivery_method = :letter_opener",
+              env: 'development'  
+  environment "config.action_mailer.perform_deliveries = true",
+              env: 'development'                        
+              
+  environment "host = ENV['IS_STAGING'] ? 'example-staging.herokuapp.com' : 'example.com'", env: 'production'  
+  
+  environment "config.action_mailer.smtp_settings = {
+    :user_name => ENV['POSTMARK_API_KEY'],
+    :password => ENV['POSTMARK_API_KEY'],
+    :domain => 'example.com',
+    :address => 'smtp.postmarkapp.com',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }", env: 'production'
 
   insert_into_file "README.md", "run to refresh sitemap: `rake sitemap:refresh`"            
 
@@ -180,6 +203,7 @@ after_bundle do
   setup_scss
   add_storage_and_rich_text
   add_some_files
+  user_settings
   tidy  
 
   
