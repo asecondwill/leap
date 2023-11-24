@@ -94,7 +94,7 @@ https://github.com/javan/whenever
 breadcrumbs 
 
 
-
+run to refresh sitemap: `rake sitemap:refresh`
 
 
 add pagy to controller? 
