@@ -55,10 +55,21 @@ def setup_js
   insert_into_file "app/javascript/controllers/index.js", "application.register('password-visibility', PasswordVisibility)
   \n"        
   
-insert_into_file "app/javascript/application.js", "import * as bootstrap from 'bootstrap'"
+insert_into_file "app/javascript/application.js", "import * as bootstrap from 'bootstrap'
+\n"
+
+run "bin/importmap pin highlight.js"
 
   git add: '.'
-  git commit: "-a -m 'pin bootstrap and password visibility'"
+  git commit: "-a -m 'pin bootstrap and and highlight.js password visibility'"
+
+  insert_into_file "config/importmap.rb", 'pin_all_from ".app/javascript/custom", under: "custom"
+  \n'      
+  copy_file "javascript/custom/sprinkles.js"
+  insert_into_file "javascript/application.js", 'import "custom/sprinkles"
+  \n' 
+  git add: '.'
+  git commit: "-a -m 'custom js'"
 end
 
 def add_storage_and_rich_text

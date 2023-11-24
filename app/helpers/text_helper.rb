@@ -12,6 +12,10 @@ module TextHelper
     concat(md(capture(&block)))
   end
 
+  def snippet_filter(language, &block)    
+    concat "<pre language='#{language}'><code>#{capture(&block)}</code></pre>".html_safe
+   end
+
   def nl2br(str)
     str.gsub(/\r\n|\r|\n/, "<br />")
   end

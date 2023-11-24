@@ -1,6 +1,8 @@
 // See the vars:
 
 // https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss
-
+$spacer: 1.8rem;
 $dropdown-border-width: 1px;
 $dropdown-border-color: #eee;
+
+$headings-margin-bottom:      $spacer * .1 !default;

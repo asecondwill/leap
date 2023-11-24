@@ -8,3 +8,28 @@
 img{
   max-width: 100%;
 }
+
+a{
+  text-decoration: none;
+}
+.external{
+  &:after{
+    font-family:'Bootstrap-icons';
+    content: '\F1C5';
+    vertical-align: text-top;
+    padding-left: .7em;
+    font-size: 0.5em;
+  }
+}
+
+.prose{
+  // add more stuff to format copy here, but the BS defaults is nice
+  // use https://getbootstrap.com/docs/5.3/content/images/#aligning-images to position images
+  table{
+    @extend .table;
+  }
+  blockquote{
+    border-left: 6px solid #ccc;  
+    padding: 1em;
+  }  
+}
