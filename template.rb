@@ -57,7 +57,7 @@ def setup_js
   git add: '.'
   git commit: "-a -m 'pin  highlight.js '"
 
-  insert_into_file "config/importmap.rb", "pin_all_from '.app/javascript/custom', under: 'custom'
+  insert_into_file "config/importmap.rb", "pin_all_from 'app/javascript/custom', under: 'custom'
   \n"      
   copy_file "app/javascript/custom/sprinkles.js"
   insert_into_file "app/javascript/application.js", "import \"custom/sprinkles\"
