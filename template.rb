@@ -10,21 +10,28 @@ def setup
 end
 
 def add_my_gems
-  gem 'devise' 
-  gem "simple_form"
+  # utility
   gem 'dartsass-rails'
   gem 'annotate'
   gem 'ransack'
   gem 'name_of_person'  
   gem 'github-markup'
   gem 'commonmarker'
+  # seo
   gem 'friendly_id'
   gem  'sitemap_generator'
-  gem "devise-bootstrap-views", github: 'asecondwill/devise-bootstrap-views'
-  gem 'pagy'
   gem "meta-tags"
   gem 'breadcrumbs_on_rails'
+  
+  # views
+  gem "simple_form"  
+  gem 'pagy'
   gem 'bootstrap_views_generator', github: 'asecondwill/bootstrap_views_generator'
+
+  # authentication
+  gem 'devise' 
+  gem "devise-bootstrap-views", github: 'asecondwill/devise-bootstrap-views'  
+  #gem "pretender"
 
   gem_group :development do
     gem 'hirb'
@@ -36,7 +43,7 @@ def add_my_gems
   git commit: "-a -m 'add gems'"
 end
 
-def run_generators   
+def run_generators_for_seo   
   generate "friendly_id"
   generate "meta_tags:install"
   rails_command "sitemap:install"
@@ -45,20 +52,10 @@ def run_generators
 end
 
 def setup_js
-  run "bin/importmap pin bootstrap"
-  run "bin/importmap pin stimulus-password-visibility"
-  insert_into_file "app/javascript/controllers/index.js", "import PasswordVisibility from 'stimulus-password-visibility'
-  \n"            
-  insert_into_file "app/javascript/controllers/index.js", "application.register('password-visibility', PasswordVisibility)
-  \n"        
-  
-  insert_into_file "app/javascript/application.js", "import * as bootstrap from 'bootstrap'
-  \n"
-
   run "bin/importmap pin highlight.js"
 
   git add: '.'
-  git commit: "-a -m 'pin bootstrap and and highlight.js password visibility'"
+  git commit: "-a -m 'pin  highlight.js '"
 
   insert_into_file "config/importmap.rb", "pin_all_from '.app/javascript/custom', under: 'custom'
   \n"      
@@ -80,7 +77,14 @@ end
 def bootstrap
   git submodule: "add -b main --name bootstrap https://github.com/twbs/bootstrap.git vendor/bootstrap"
   git add: '.'
-  git commit: "-a -m 'Bootstrap as a submodule, add dart, set up sass'"
+  git commit: "-a -m 'Bootstrap as a submodule,'"
+
+  run "bin/importmap pin bootstrap"
+  insert_into_file "app/javascript/application.js", "import * as bootstrap from 'bootstrap'
+  \n"
+  git add: '.'
+  git commit: "-a -m 'Bootstrap js'"
+
 end
 
 def dart_sass
@@ -99,11 +103,21 @@ def dart_sass
 end
 
 def devise
-  route "  devise_for :users "
+  
   generate "devise:install"  
   generate :devise, "User", "first_name", "last_name", "admin:boolean", "time_zone:string"
+  #route "  devise_for :users "
   git add: '.'
   git commit: "-a -m 'setup devise '"
+
+  run "bin/importmap pin stimulus-password-visibility"
+  insert_into_file "app/javascript/controllers/index.js", "import PasswordVisibility from 'stimulus-password-visibility'
+  \n"            
+  insert_into_file "app/javascript/controllers/index.js", "application.register('password-visibility', PasswordVisibility)
+  \n"        
+
+  git add: '.'
+  git commit: "-a -m 'password visibility '"
 end
 
 def user_settings
@@ -164,7 +178,7 @@ def simple_form
   git commit: "-a -m 'add inputgroup component '"
 end
 
-def copy_stuff
+def copy_files_from_template
   run "rm README.md"
   copy_file "README.md"
   #insert_into_file "README.md", "run to refresh sitemap: `rake sitemap:refresh`"  
@@ -185,37 +199,47 @@ def copy_stuff
 end
 
 
-def routes
+def routes_for_home_and_dash
   route "root to: 'landings#home'"  
   route "get 'dash' => 'dashboards#home', as: :user_root "
   git add: '.'
   git commit: "-a -m 'assorted routes'"  
 end
 
-def tidy 
+def staging 
   environment "host = ENV['IS_STAGING'] ? 'example-staging.herokuapp.com' : 'example.com'", env: 'production'  
 end
+
+# def impersonation
+#   content = <<~RUBY
+#     resources :users, only: [:index] do
+#       post :impersonate, on: :member
+#       post :stop_impersonating, on: :collection
+#     end
+#   RUBY
+#   insert_into_file "config/routes.rb", "#{content}\n", after: "Rails.application.routes.draw do\n"
+# end
 
 setup
 add_my_gems
 
 after_bundle do
   # bin stubs created before this, so can do bundle stuff. 
+  staging
+  email
+  routes_for_home_and_dash
   
-  run_generators
+  run_generators_for_seo
   setup_js
-  setup_scss
-  add_storage_and_rich_text
-  add_some_files
+  add_storage_and_rich_text  
   dart_sass
   bootstrap
-  devise
-  email
-  user_settings
-  copy_stuff
   simple_form
-  routes
-  tidy  
+  devise    
+  user_settings
+  # impersonation
+  copy_files_from_template
+    
 
   
 
