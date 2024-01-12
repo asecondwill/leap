@@ -11,7 +11,7 @@ window.addEventListener("DOMContentLoaded", function externalLinks() {
 
 
 
-import hljs from "highlight.js"
-document.addEventListener('turbo:load', (event) => {  
-  hljs.highlightAll();
-});
+// import hljs from "highlight.js"
+// document.addEventListener('turbo:load', (event) => {  
+//   hljs.highlightAll();
+// });

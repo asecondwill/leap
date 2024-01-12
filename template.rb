@@ -24,6 +24,7 @@ def add_my_gems
   gem 'breadcrumbs_on_rails'
   
   # views
+  gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
   gem "simple_form"  
   gem 'pagy'
   gem 'bootstrap_views_generator', github: 'asecondwill/bootstrap_views_generator'
@@ -52,10 +53,10 @@ def run_generators_for_seo
 end
 
 def setup_js
-  run "bin/importmap pin highlight.js"
+  #run "bin/importmap pin highlight.js"
 
-  git add: '.'
-  git commit: "-a -m 'pin  highlight.js '"
+  #git add: '.'
+  #git commit: "-a -m 'pin  highlight.js '"
 
   insert_into_file "config/importmap.rb", "pin_all_from 'app/javascript/custom', under: 'custom'
   \n"      
@@ -75,12 +76,19 @@ def add_storage_and_rich_text
 end
 
 def bootstrap
-  git submodule: "add -b main --name bootstrap https://github.com/twbs/bootstrap.git vendor/bootstrap"
-  git add: '.'
-  git commit: "-a -m 'Bootstrap as a submodule,'"
+  # git submodule: "add -b main --name bootstrap https://github.com/twbs/bootstrap.git vendor/bootstrap"
+  # git add: '.'
+  # git commit: "-a -m 'Bootstrap as a submodule,'"
 
-  run "bin/importmap pin bootstrap"
-  insert_into_file "app/javascript/application.js", "import * as bootstrap from 'bootstrap'
+  #run "bin/importmap pin bootstrap"
+  insert_into_file "config/importmap.rb", "pin 'bootstrap', to: 'bootstrap.min.js'
+  \n"      
+  insert_into_file "config/importmap.rb", "pin 'popper', to: 'popper.js'
+  \n"      
+
+  insert_into_file "app/javascript/application.js", "import  'popper' 
+  \n"
+  insert_into_file "app/javascript/application.js", "import  'bootstrap' 
   \n"
   git add: '.'
   git commit: "-a -m 'Bootstrap js'"

@@ -7,8 +7,15 @@ class User < ApplicationRecord
   has_person_name   
   
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-
+  validates :time_zone, presence: true
   validate :password_complexity  
+  
+  # TODO:  move this to migration
+  before_validation :set_time_zone  
+  def set_time_zone    
+    self.time_zone = 'Sydney'
+  end
+
 
   def password_complexity
     #https://github.com/heartcombo/devise/wiki/How-To:-Set-up-simple-password-complexity-requirements

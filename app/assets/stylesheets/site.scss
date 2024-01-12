@@ -3,7 +3,8 @@
 
  // https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss
 @import "site/_variables";
-@import "../../../vendor/bootstrap/scss/bootstrap.scss";
+@import "bootstrap";
+
 
 @import "site/devise";
 @import "shared";
