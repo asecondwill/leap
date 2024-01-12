@@ -1,17 +1,21 @@
 class UsersController < ApplicationController
-  add_breadcrumb "home", :root_path
+  # add_breadcrumb "home", :root_path
   before_action :authenticate_user!  
-  add_breadcrumb "Settings", :settings_path
+  add_breadcrumb "Dashboard", :user_root_path
 
   def index
+    
+    add_breadcrumb "Users", :users_path
     @users = User.all
   end
   
   def settings
+    add_breadcrumb "Settings", :settings_path
     @user = current_user
   end
 
   def update_settings
+   
     @user = current_user
     if @user.update(user_params)
       redirect_to  settings_path, notice: "Member was successfully updated."     
@@ -21,6 +25,7 @@ class UsersController < ApplicationController
   end
 
   def password
+    add_breadcrumb "Password", :change_password_path
     @user = current_user
   end
 

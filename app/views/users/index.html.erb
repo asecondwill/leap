@@ -25,7 +25,7 @@
             </td>
             <td class="actions">
               <% unless user == current_user %>
-              <%= link_to "Impersonate", impersonate_user_path(user),data: { turbo_method: :post} %>
+              <%= link_to '<i class="bi bi-people"></i>'.html_safe, impersonate_user_path(user),data: { turbo_method: :post}, title: 'impersonate' %>
               <% end %>
             </td>
           </tr>
