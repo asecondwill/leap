@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :set_current_user  
   around_action :set_time_zone, if: :current_user
+  impersonates :user
 
   include Pagy::Backend
 

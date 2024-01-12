@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Created</th>
+        <td class="actions"></td>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td>
+              <%= user.first_name %>              
+            </td>
+            <td>
+              <%= user.last_name %>              
+            </td>
+            <td>
+              <%= user.email %>              
+            </td>
+            <td>
+              <%= user.created_at %>              
+            </td>
+            <td class="actions">
+              <% unless user == current_user %>
+              <%= link_to "Impersonate", impersonate_user_path(user),data: { turbo_method: :post} %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

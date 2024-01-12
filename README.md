@@ -98,3 +98,7 @@ run to refresh sitemap: `rake sitemap:refresh`
 
 
 add pagy to controller? 
+
+
+pretender, but, teams? keep it secure. 
+

@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   add_breadcrumb "home", :root_path
   before_action :authenticate_user!  
   add_breadcrumb "Settings", :settings_path
+
+  def index
+    @users = User.all
+  end
   
   def settings
     @user = current_user
@@ -28,6 +32,19 @@ class UsersController < ApplicationController
       render :password, status: :unprocessable_entity    
     end
   end
+
+
+  def impersonate
+    user = User.find(params[:id])
+    impersonate_user(user)
+    redirect_to root_path
+  end
+
+  def stop_impersonating
+    stop_impersonating_user
+    redirect_to root_path
+  end
+
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :time_zone, :password)

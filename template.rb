@@ -31,7 +31,7 @@ def add_my_gems
   # authentication
   gem 'devise' 
   gem "devise-bootstrap-views", github: 'asecondwill/devise-bootstrap-views'  
-  #gem "pretender"
+  gem "pretender"
 
   gem_group :development do
     gem 'hirb'
@@ -210,15 +210,15 @@ def staging
   environment "host = ENV['IS_STAGING'] ? 'example-staging.herokuapp.com' : 'example.com'", env: 'production'  
 end
 
-# def impersonation
-#   content = <<~RUBY
-#     resources :users, only: [:index] do
-#       post :impersonate, on: :member
-#       post :stop_impersonating, on: :collection
-#     end
-#   RUBY
-#   insert_into_file "config/routes.rb", "#{content}\n", after: "Rails.application.routes.draw do\n"
-# end
+def impersonation
+  content = <<~RUBY
+    resources :users, only: [:index] do
+      post :impersonate, on: :member
+      post :stop_impersonating, on: :collection
+    end
+  RUBY
+  insert_into_file "config/routes.rb", "#{content}\n", after: "Rails.application.routes.draw do\n"
+end
 
 setup
 add_my_gems
@@ -237,7 +237,7 @@ after_bundle do
   simple_form
   devise    
   user_settings
-  # impersonation
+  impersonation
   copy_files_from_template
     
 
