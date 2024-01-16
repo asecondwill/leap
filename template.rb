@@ -38,6 +38,7 @@ def add_my_gems
     gem 'hirb'
     gem 'rails-erd'
     gem 'letter_opener'
+    gem 'dotenv-rails'
   end
   
   git add: '.'
@@ -70,6 +71,9 @@ end
 def add_storage_and_rich_text
   rails_command "active_storage:install"
   rails_command "action_text:install"
+
+ 
+  environment "config.active_storage.service = :aws", env: 'production'  
 
   git add: '.'
   git commit: "-a -m 'add storage and text'"
@@ -204,6 +208,11 @@ def copy_files_from_template
   copy_file "initializers/time_formats.rb"
   git add: '.'
   git commit: "-a -m 'add time formats '"
+
+  copy_file ".env"
+  git add: '.'
+  git commit: "-a -m 'copy .env '"
+
 end
 
 
@@ -228,6 +237,20 @@ def impersonation
   insert_into_file "config/routes.rb", "#{content}\n", after: "Rails.application.routes.draw do\n"
 end
 
+def advanced_select
+  run " bin/importmap pin tom-select --from jsdelivr  "
+  content = <<~RUBY
+    import  'tom-select'
+    
+    document.querySelectorAll('.select-advanced').forEach((el)=>{
+      let settings = {};
+      new TomSelect(el,settings);
+    });
+  RUBY
+  insert_into_file "app/javascript/application.js", "#{content}
+  \n" 
+end
+
 setup
 add_my_gems
 
@@ -242,6 +265,7 @@ after_bundle do
   add_storage_and_rich_text  
   dart_sass
   bootstrap
+  advanced_select
   simple_form
   devise    
   user_settings

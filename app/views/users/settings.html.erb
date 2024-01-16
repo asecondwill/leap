@@ -12,7 +12,17 @@
       
       <%= f.input :email %>
     
-      <%= f.input :time_zone %>
+      <%= f.input :time_zone, input_html:{class: 'select-advanced' } %>
+
+      <div class="mb-3">
+        <%= f.input :avatar %>
+        <% if f.object.avatar.attached? %> 
+        <%= image_tag f.object.avatar %>
+        <hr>
+        <%= image_tag f.object.avatar.variant(:thumb) %>
+
+        <% end %>
+      </div>
     </div>
     <div class="form-actions">
       <%= f.button :submit, class: 'btn btn-primary' %>

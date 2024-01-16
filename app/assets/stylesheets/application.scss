@@ -4,8 +4,10 @@
 @import "application/_variables";
 @import "bootstrap";
 
-
+@import "trix";
 @import "shared";
+
+@import "vendor/tom_select";
 
 @include media-breakpoint-up(md) { 
   .sidebar-wrapper{

@@ -10,6 +10,11 @@ class User < ApplicationRecord
   validates :time_zone, presence: true
   validate :password_complexity  
   
+  has_one_attached :avatar, service: ENV['PUBLIC_STORAGE_SERVICE'].to_sym do |attachable|
+    attachable.variant :thumb, resize_to_limit: [100, 100]
+  end
+
+  
   # TODO:  move this to migration
   before_validation :set_time_zone  
   def set_time_zone    

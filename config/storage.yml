@@ -1,0 +1,26 @@
+
+local:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
+
+local_public:
+  service: Disk
+  root: <%= Rails.root.join("public/storagepublic") %>
+  public: true  
+
+
+
+aws:
+  service: S3
+  access_key_id: <%= ENV["AWS_KEY"] %>
+  secret_access_key: <%= ENV["AWS_SECRET_KEY"] %>
+  region: <%= ENV["AWS_REGION"] %>
+  bucket: <%= ENV["AWS_BUCKET"] %>
+
+aws_public:
+  service: S3
+  access_key_id: <%= ENV["AWS_KEY"] %>
+  secret_access_key: <%= ENV["AWS_SECRET_KEY"] %>
+  region: <%= ENV["AWS_REGION"] %>
+  bucket: <%= ENV["AWS_BUCKET_PUBLIC"] %>
+  public: true
