@@ -17,6 +17,7 @@ def add_my_gems
   gem 'name_of_person'  
   gem 'github-markup'
   gem 'commonmarker'
+  gem "solid_queue"
   # seo
   gem 'friendly_id'
   gem  'sitemap_generator'
@@ -249,6 +250,10 @@ def advanced_select
   RUBY
   insert_into_file "app/javascript/application.js", "#{content}
   \n" 
+end
+
+def solid_queue
+  generate "solid_queue:install"
 end
 
 setup
