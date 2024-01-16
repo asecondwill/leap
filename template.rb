@@ -75,7 +75,8 @@ def add_storage_and_rich_text
 
  
   environment "config.active_storage.service = :aws", env: 'production'  
-
+  copy_file "config/storage.yml"
+  
   git add: '.'
   git commit: "-a -m 'add storage and text'"
 end
