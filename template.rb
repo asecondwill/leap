@@ -75,8 +75,8 @@ def add_storage_and_rich_text
 
  
   environment "config.active_storage.service = :aws", env: 'production'  
-  copy_file "config/storage.yml"
-  
+  copy_file "config/storage.yml" , force: true
+
   git add: '.'
   git commit: "-a -m 'add storage and text'"
 end
@@ -227,6 +227,8 @@ end
 
 def staging 
   environment "host = ENV['IS_STAGING'] ? 'example-staging.herokuapp.com' : 'example.com'", env: 'production'  
+  git add: '.'
+  git commit: "-a -m 'add staging config code'"
 end
 
 def impersonation
@@ -237,6 +239,8 @@ def impersonation
     end
   RUBY
   insert_into_file "config/routes.rb", "#{content}\n", after: "Rails.application.routes.draw do\n"
+  git add: '.'
+  git commit: "-a -m 'set up impersonation'"
 end
 
 def advanced_select
@@ -251,10 +255,16 @@ def advanced_select
   RUBY
   insert_into_file "app/javascript/application.js", "#{content}
   \n" 
+  git add: '.'
+  git commit: "-a -m 'set up advanced_select'"
 end
 
-def solid_queue
+def solid_queue_setup
   generate "solid_queue:install"
+  environment "config.active_job.queue_adapter = :solid_queue", env: 'development' 
+  environment "config.active_job.queue_adapter = :solid_queue", env: 'production' 
+  git add: '.'
+  git commit: "-a -m 'set up solid queue'"
 end
 
 setup
@@ -277,6 +287,7 @@ after_bundle do
   user_settings
   impersonation
   copy_files_from_template
+  solid_queue_setup
     
 
   
