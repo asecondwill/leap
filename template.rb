@@ -193,6 +193,7 @@ def simple_form
 end
 
 def copy_files_from_template
+  # TODO: NB: this needs to be last, it stops the process for some reason.
   run "rm README.md"
   copy_file "README.md"
   #insert_into_file "README.md", "run to refresh sitemap: `rake sitemap:refresh`"  
@@ -260,6 +261,7 @@ def advanced_select
 end
 
 def solid_queue_setup
+  puts "solid queue being done"
   generate "solid_queue:install"
   environment "config.active_job.queue_adapter = :solid_queue", env: 'development' 
   environment "config.active_job.queue_adapter = :solid_queue", env: 'production' 
@@ -286,8 +288,11 @@ after_bundle do
   devise    
   user_settings
   impersonation
-  copy_files_from_template
+  puts "ready for solid queue being done"
   solid_queue_setup
+  copy_files_from_template
+  
+  
     
 
   
