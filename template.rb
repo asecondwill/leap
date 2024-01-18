@@ -248,11 +248,13 @@ def advanced_select
   run " bin/importmap pin tom-select --from jsdelivr  "
   content = <<~RUBY
     import  'tom-select'
-    
-    document.querySelectorAll('.select-advanced').forEach((el)=>{
-      let settings = {};
-      new TomSelect(el,settings);
-    });
+    addEventListener("turbo:load", (event) => {
+      console.log('page loaded');
+      document.querySelectorAll('.select-advanced').forEach((el)=>{
+        let settings = {};
+        new TomSelect(el,settings);
+      });
+    })  
   RUBY
   insert_into_file "app/javascript/application.js", "#{content}
   \n" 
