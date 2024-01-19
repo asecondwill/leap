@@ -34,6 +34,8 @@ def add_my_gems
   gem 'devise' 
   gem "devise-bootstrap-views", github: 'asecondwill/devise-bootstrap-views'  
   gem "pretender"
+  # authorization
+  gem "pundit"
 
   gem_group :development do
     gem 'hirb'
@@ -279,6 +281,10 @@ def solid_queue_setup
   git commit: "-a -m 'set up solid queue'"
 end
 
+def do_pundit
+  generate "pundit:install"
+end
+
 setup
 add_my_gems
 
@@ -300,6 +306,7 @@ after_bundle do
   impersonation
   puts "ready for solid queue being done"
   solid_queue_setup
+  do_pundit
   copy_files_from_template
   
   
